@@ -23,6 +23,4 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Blackboard")
 	FBlackboardKeySelector WaypointKey;
 	
-	
-	
 };

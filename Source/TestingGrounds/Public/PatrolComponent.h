@@ -22,5 +22,4 @@ private:
 	TArray<AActor*> PatrolPoints;
 
 		
-	
 };

@@ -16,17 +16,19 @@ EBTNodeResult::Type UChooseNextWaypoint::ExecuteTask(UBehaviorTreeComponent & Ow
 
 	auto PatrolPoints = PatrolComponent->GetPatrolPoints();
 
-	if (ensure(PatrolPoints.Num() == 0)) { return EBTNodeResult::Failed; }
+	if (ensure(PatrolPoints.Num() != 0))
+	{
+		//set nextwaypoint
+		auto BlackboardComp = OwnerComp.GetBlackboardComponent();
+		auto Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
+		BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);
 
+		//cycle index
+		auto NextIndex = (Index + 1) % PatrolPoints.Num();
+		BlackboardComp->SetValueAsInt(IndexKey.SelectedKeyName, NextIndex);
 
-	//set nextwaypoint
-	auto BlackboardComp = OwnerComp.GetBlackboardComponent();
-	auto Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
-	BlackboardComp->SetValueAsObject(WaypointKey.SelectedKeyName, PatrolPoints[Index]);
+		return EBTNodeResult::Succeeded;
+	}
 
-	//cycle index
-	auto NextIndex = (Index + 1) % PatrolPoints.Num();
-	BlackboardComp->SetValueAsInt(IndexKey.SelectedKeyName, NextIndex);
-
-	return EBTNodeResult::Succeeded;
+	else return EBTNodeResult::Failed;
 }
