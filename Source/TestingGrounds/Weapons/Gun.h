@@ -41,6 +41,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class UAnimInstance* AnimInstance;
 
+	UFUNCTION(BlueprintCallable, Category = "Fire")
 	void OnFire();
 
 	
