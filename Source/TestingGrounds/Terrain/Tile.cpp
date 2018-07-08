@@ -13,21 +13,39 @@ ATile::ATile()
 
 }
 
-void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn)
+void ATile::PlaceActors(TSubclassOf<AActor> ToSpawn, int32 MinSpawn, int32 MaxSpawn, float Radius)
+{
+	int NumberToSpawn = FMath::RandRange(MinSpawn, MaxSpawn);
+	for (size_t i = 0; i < NumberToSpawn; i++)
+	{
+		FVector SpawnPoint = GetEmptyLocation(Radius);
+		PlaceActor(ToSpawn, SpawnPoint);
+	}
+}
+
+FVector ATile::GetEmptyLocation(float Radius)
 {
 	FVector Min = FVector(81.f, -1718.f, 80.f);
 	FVector Max = FVector(3837.f, 1984.f, 80.f);
 	FBox Bounds(Min, Max);
-	int NumberToSpawn = FMath::RandRange(MinSpawn, MaxSpawn);
-	for (size_t i = 0; i < NumberToSpawn; i++)
-	{
-		FVector SpawnPoint = FMath::RandPointInBox(Bounds);
-		AActor* Spawned = GetWorld()->SpawnActor<AActor>(ToSpawn);
-		Spawned->SetActorRelativeLocation(SpawnPoint);
-		Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
-	}
 
+	FVector SpawnPoint;
+	do
+	{
+		SpawnPoint = FMath::RandPointInBox(Bounds);
+		CastSphere(SpawnPoint, 300.f);
+	} while (CastSphere(SpawnPoint, 300.f));
+
+	return SpawnPoint;
 }
+
+void ATile::PlaceActor(TSubclassOf<AActor> ToSpawn, FVector SpawnPoint)
+{
+	AActor* Spawned = GetWorld()->SpawnActor<AActor>(ToSpawn);
+	Spawned->SetActorRelativeLocation(SpawnPoint);
+	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+}
+
 
 bool ATile::CastSphere(FVector Location, float Radius)
 {
