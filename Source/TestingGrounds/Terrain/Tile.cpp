@@ -2,7 +2,6 @@
 
 #include "Tile.h"
 #include "Engine/World.h"
-#include "DrawDebugHelpers.h"
 
 
 // Sets default values
@@ -77,6 +76,7 @@ bool ATile::CanSpawnAtLocation(FVector Location, float Radius)
 void ATile::BeginPlay()
 {
 	Super::BeginPlay();
+
 }
 
 
