@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ChooseNextWaypoint.h"
-#include "Public/ChooseNextWaypoint.h"
+#include "ChooseNextWaypoint.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "PatrolComponent.h"
 #include "AIController.h"

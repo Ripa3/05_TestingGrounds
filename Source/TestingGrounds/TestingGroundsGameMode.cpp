@@ -2,7 +2,6 @@
 
 #include "TestingGroundsGameMode.h"
 #include "TestingGroundsHUD.h"
-#include "Player/FirstPersonCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 ATestingGroundsGameMode::ATestingGroundsGameMode()
