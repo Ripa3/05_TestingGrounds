@@ -1,9 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "InfiniteTerrainGameMode.h"
+#include "ActorPool.h"
 #include "EngineUtils.h"
 #include "Engine/World.h"
 #include "AI/Navigation/NavMeshBoundsVolume.h"
+
+AInfiniteTerrainGameMode::AInfiniteTerrainGameMode()
+{
+	NavMeshBoundsVolumePool = CreateDefaultSubobject<UActorPool>(FName("Nav Mesh Bounds Volume"));
+}
 
 void AInfiniteTerrainGameMode::PopulateBoundsPool()
 {
@@ -17,5 +23,6 @@ void AInfiniteTerrainGameMode::PopulateBoundsPool()
 
 void AInfiniteTerrainGameMode::AddToPool(ANavMeshBoundsVolume * VolumeToAdd)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Volume To Add: %s"), *VolumeToAdd->GetName());
+	NavMeshBoundsVolumePool->Add(VolumeToAdd);
+
 }
