@@ -21,11 +21,13 @@ AActor* UActorPool::Checkout()
 
 void UActorPool::Return(AActor* ActorToReturn)
 {
+	if (ActorToReturn == nullptr) { return; }
 	Add(ActorToReturn);
 }
 
 
 void UActorPool::Add(AActor* ActorToAdd)
 {
+	if (ActorToAdd == nullptr) { return; }
 	Pool.Push(ActorToAdd);
 }
